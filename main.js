@@ -82,7 +82,7 @@ let array_reservas = [reserva0, reserva00];
 
 array_alumnos_estudio = definir_alumnos_estudio();
 
-//La función que sigue la tuve que agregar porque de la nada me empezó a dar error cuando pedía console.log. Encontré esta solución en internet. La agregué y anduvo otra vez.
+//La función que sigue la agregué porque "de la nada" me empezó a dar error cuando pedía console.log. Encontré esta solución en internet. La agregué y anduvo otra vez.
 function log(message) {
   let console = window.console || {};
   console.log = console.log || function () {};
@@ -92,9 +92,7 @@ function log(message) {
 function definir_alumnos_estudio() {
   //La lista de alumnos la toma del LocalStorage, pero si está vacío crea una ad-hoc.
   if (localStorage.getItem("alumnos estudio")) {
-    let array_alumnos_estudio = JSON.parse(
-      localStorage.getItem("alumnos estudio")
-    );
+    let array_alumnos_estudio = JSON.parse(localStorage.getItem("alumnos estudio"));
     return array_alumnos_estudio;
   }
   let array_alumnos_estudio = [alumno0, alumno00, alumno000];
@@ -109,11 +107,7 @@ function actualizar_alumnos_estudio(un_alumno) {
 
 function actualizar_turno(un_turno) {
   //Cuando se hace una reserva, si ese turno no tenía alumnos hay que generar la instancia de la reserva y agregar el turno a la lista de turnos. Si el turno ya tenía alumnos, no se hace nada.
-  if (
-    !array_reservas.some(
-      (elemento) => elemento.turno == un_turno.dia + " " + un_turno.horario
-    )
-  ) {
+  if (!array_reservas.some((elemento) => elemento.turno == un_turno.dia + " " + un_turno.horario)) {
     array_turnos.push(un_turno);
     actualizar_reserva(un_turno);
   }
@@ -129,16 +123,11 @@ function actualizar_reserva(un_turno) {
 
 function alta_alumno() {
   //Si el alumno es nuevo, lo agrega a la lista de alumnos del estudio y crea la instancia del alumno. Si ya existe, lo recupera.
-  if (
-    array_alumnos_estudio.some(
-      (alumno) => alumno.email == localStorage.getItem("email")
-    )
-  ) {
-    let alumno = array_alumnos_estudio.find(
-      (alumno) => alumno.email == localStorage.getItem("email")
-    );
+  if (array_alumnos_estudio.some((alumno) => alumno.email == localStorage.getItem("email"))) {
+    let alumno = array_alumnos_estudio.find((alumno) => alumno.email == localStorage.getItem("email"));
     return alumno;
-  } else {
+  } 
+  else {
     const alumno1 = new Alumno(
       localStorage.getItem("nombre"),
       localStorage.getItem("apellido"),
@@ -158,20 +147,7 @@ function consulta_turnos_alumno(alumno) {
 function alumnos_en_el_turno(dia, horario) {
   //Consulta los alumnos en un turno.
   let el_turno = dia + " " + horario;
-  return (
-    array_reservas.find((elemento) => elemento.turno == el_turno)?.alumnos ||
-    "no hay alumnos en el turno!"
-  );
-}
-
-function acepta(aceptado) {
-  //DOM cuando se aprieta aceptar.
-  contenedor_parrafo.appendChild(parrafo);
-  aceptado
-    ? contenedor_botones.appendChild(aceptar)
-    : contenedor_botones.appendChild(volver);
-  aceptar.addEventListener("click", crear_botones);
-  volver.addEventListener("click", crear_botones);
+  return (array_reservas.find((elemento) => elemento.turno == el_turno)?.alumnos ||"no hay alumnos en el turno!");
 }
 
 function crear_botones() {
@@ -234,30 +210,13 @@ function salir() {
   console.log(array_alumnos_estudio);
 
   array_alumnos_estudio.forEach((alumno) =>
-    console.log(
-      "Los turnos reservados por",
-      alumno.nombre,
-      alumno.apellido,
-      "son:",
-      consulta_turnos_alumno(alumno)
-    )
-  );
+    console.log("Los turnos reservados por",alumno.nombre,alumno.apellido,"son:",consulta_turnos_alumno(alumno)));
   array_turnos.forEach((elemento) =>
-    console.log(
-      "Alumnos en el turno del",
-      elemento.dia,
-      "a las",
-      elemento.horario,
-      ":",
-      alumnos_en_el_turno(elemento.dia, elemento.horario)
-    )
-  );
-  localStorage.setItem(
-    "alumnos estudio",
-    JSON.stringify(array_alumnos_estudio)
-  );
+    console.log("Alumnos en el turno del",elemento.dia,"a las",elemento.horario,":",alumnos_en_el_turno(elemento.dia, elemento.horario)));
+  localStorage.setItem("alumnos estudio",JSON.stringify(array_alumnos_estudio));
   clases_de_pilates.classList.toggle("oculto");
 }
+
 function mostrar_clases() {
   //Levanta las clases del archivo JSON y crea las cards en las que se muestran.
   fetch(lista_clases_pilates)
@@ -282,9 +241,8 @@ function mostrar_clases() {
 }
 
 function cancelo() {
-  let alumno_molesto = array_alumnos_estudio.find(
-    (alumno) => alumno.email == localStorage.getItem("email")
-  );
+  //Se ejecuta para actualizar turnos cuando un turno se cancela.
+  let alumno_molesto = array_alumnos_estudio.find((alumno) => alumno.email == localStorage.getItem("email"));
   let dia = alumno_molesto.turnos_reservados[0].dia;
   let horario = alumno_molesto.turnos_reservados[0].horario;
   if (!localStorage.getItem("fecha turno")) {
@@ -294,9 +252,7 @@ function cancelo() {
   alumno_molesto.turnos_reservados.pop();
   let fecha_a_cancelar = localStorage.getItem("fecha turno");
   let horario_a_cancelar = localStorage.getItem("horario turno");
-  let turno_a_cancelar = array_reservas.find(
-    (reserva) => reserva.turno == fecha_a_cancelar + " " + horario_a_cancelar
-  );
+  let turno_a_cancelar = array_reservas.find((reserva) => reserva.turno == fecha_a_cancelar + " " + horario_a_cancelar);
   turno_a_cancelar.alumnos.pop();
   remover();
   Swal.fire({
@@ -330,14 +286,14 @@ formulario.addEventListener("submit", (e) => {
   localStorage.setItem("apellido", apellido);
   localStorage.setItem("email", email);
   let alumno1 = alta_alumno();
-  alumno1.turnos_reservados.length != 0 &&
-    localStorage.setItem("turnos", JSON.stringify(alumno1.turnos_reservados));
+  alumno1.turnos_reservados.length != 0 && localStorage.setItem("turnos", JSON.stringify(alumno1.turnos_reservados));
   formulario.remove();
   welcome.remove();
   crear_botones();
   clases_de_pilates.classList.toggle("oculto");
 });
 
+//Si aprietan "reservar":
 reservar.addEventListener("click", () => {
   remover();
   if (localStorage.getItem("turnos")) {
@@ -360,6 +316,7 @@ reservar.addEventListener("click", () => {
   }
 });
 
+//Formulario para reservar turno:
 formulario2.addEventListener("submit", (e) => {
   e.preventDefault();
   const dia = document.getElementById("fecha_turno").value;
@@ -368,9 +325,7 @@ formulario2.addEventListener("submit", (e) => {
   let alumno1 = alta_alumno();
   actualizar_turno(turno1);
   alumno1.turnos_reservados.push(turno1);
-  let la_reserva = array_reservas.find(
-    (elemento) => elemento.turno == turno1.dia + " " + turno1.horario
-  );
+  let la_reserva = array_reservas.find((elemento) => elemento.turno == turno1.dia + " " + turno1.horario);
   la_reserva.alumnos.push(alumno1);
   remover();
   Swal.fire({
@@ -389,6 +344,7 @@ formulario2.addEventListener("submit", (e) => {
   crear_botones();
 });
 
+//Si aprietan "consultar":
 consultar.addEventListener("click", () => {
   if (!localStorage.getItem("turnos")) {
     sin_turnos();
@@ -396,11 +352,7 @@ consultar.addEventListener("click", () => {
     let alumno1 = alta_alumno();
     turnos_alumno1 = consulta_turnos_alumno(alumno1);
     Swal.fire({
-      title: `${localStorage.getItem(
-        "nombre"
-      )}, Ud. tiene un turno reservado para el ${turnos_alumno1[0].dia} a las ${
-        turnos_alumno1[0].horario
-      }.`,
+      title: `${localStorage.getItem("nombre")}, Ud. tiene un turno reservado para el ${turnos_alumno1[0].dia} a las ${turnos_alumno1[0].horario}.`,
       showConfirmButton: false,
       showCancelButton: false,
       cancelButtonText: "ACEPTAR",
@@ -411,19 +363,17 @@ consultar.addEventListener("click", () => {
   }
 });
 
+//Si aprietan "cancelar":
 cancelar.addEventListener("click", () => {
   remover();
   if (!localStorage.getItem("turnos")) {
     sin_turnos();
-  } else {
+  } 
+  else {
     let alumno1 = alta_alumno();
     let turnos_alumno1 = consulta_turnos_alumno(alumno1);
     Swal.fire({
-      title: `${localStorage.getItem(
-        "nombre"
-      )}, Ud. cancelará el turno reservado para el ${
-        turnos_alumno1[0].dia
-      } a las ${turnos_alumno1[0].horario}.`,
+      title: `${localStorage.getItem("nombre")}, Ud. cancelará el turno reservado para el ${turnos_alumno1[0].dia} a las ${turnos_alumno1[0].horario}.`,
       showConfirmButton: true,
       showCancelButton: true,
       cancelButtonText: "VOLVER",
@@ -444,6 +394,7 @@ cancelar.addEventListener("click", () => {
   }
 });
 
+//Si aprietan "finalizar":
 finalizar.addEventListener("click", () => {
   remover();
   salir();
