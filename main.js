@@ -31,18 +31,14 @@ reservar.className = "btn btn-outline-secondary";
 volver.className = "btn btn-outline-secondary";
 const clases_de_pilates = document.getElementById("clases_de_pilates");
 const lista_clases_pilates = "clases.json";
-
 formulario2.remove();
-
-// const botones=document.getElementsByTagName("button"); let array_botones = Array.from(botones); // array_botones.forEach(e => {e.className="rojo"});
-// Lo anterior solo cambiaría el formato de los botones que están appendeados. Los que aún no, siguen sin cambiar. Debería hacer un array con todos los botones para que cambie todos.
 
 //Clases para trabajar: Alumno, Turno y Reserva, que vincula las otras dos.
 class Alumno {
   constructor(nombre, apellido, email, turnos_reservados) {
     this.nombre = nombre;
     this.apellido = apellido;
-    this.email = email;
+    this.email = email; //email hará las veces de id
     this.turnos_reservados = turnos_reservados;
   }
 }
@@ -56,7 +52,7 @@ class Turno {
 
 class Reserva {
   constructor(turno, alumnos) {
-    this.turno = turno;
+    this.turno = turno; //turno hará las veces de id
     this.alumnos = alumnos;
   }
 }
@@ -85,8 +81,10 @@ let array_turnos = [turno0, turno00];
 let array_reservas = [reserva0, reserva00];
 
 array_alumnos_estudio = definir_alumnos_estudio();
+
+//La función que sigue la tuve que agregar porque de la nada me empezó a dar error cuando pedía console.log. Encontré esta solución en internet. La agregué y anduvo otra vez.
 function log(message) {
-  var console = window.console || {};
+  let console = window.console || {};
   console.log = console.log || function () {};
   console.log(message);
 }
@@ -104,7 +102,7 @@ function definir_alumnos_estudio() {
 }
 
 function actualizar_alumnos_estudio(un_alumno) {
-  //Si se da de alta un alumno, lo agrega a la lista.
+  //Si se da loguea un alumno nuevo, lo agrega a la lista de alumnos.
   array_alumnos_estudio.push(un_alumno);
   return array_alumnos_estudio;
 }
@@ -169,11 +167,6 @@ function alumnos_en_el_turno(dia, horario) {
 function acepta(aceptado) {
   //DOM cuando se aprieta aceptar.
   contenedor_parrafo.appendChild(parrafo);
-  // if (aceptado){
-  //     contenedor_parrafo.appendChild(aceptar)}
-  // else{
-  //     contenedor_parrafo.appendChild(volver)
-  // }
   aceptado
     ? contenedor_botones.appendChild(aceptar)
     : contenedor_botones.appendChild(volver);
@@ -218,7 +211,6 @@ function sin_turnos() {
 function salir() {
   remover();
   formulario.reset();
-  //titulo.innerText = "¡Gracias por usar nuestro sistema de gestión de turnos!";
   Swal.fire({
     title: "¡Gracias por usar nuestro sistema de gestión de turnos!",
     showConfirmButton: false,
@@ -227,7 +219,6 @@ function salir() {
     background: "transparent",
     backdrop: "linear-gradient(135deg, #08010a,#1e0125)",
     timer: 3000,
-    //        buttonsStyling:false,
   });
   setTimeout(() => {
     contenedor_bienvenida.appendChild(titulo);
@@ -268,44 +259,27 @@ function salir() {
   clases_de_pilates.classList.toggle("oculto");
 }
 function mostrar_clases() {
+  //Levanta las clases del archivo JSON y crea las cards en las que se muestran.
   fetch(lista_clases_pilates)
     .then((respuesta) => respuesta.json())
     .then((datos) => {
-      // datos.forEach(clase_pilates => {
-      //     clases_de_pilates.innerHTML += `
-      //     <h2>Horario: ${clase_pilates.horario} </h2>
-      //     <p>Nivel: ${clase_pilates.nivel} </p>
-      //     <p>Descripción: ${clase_pilates.descripción} </p>`
-      // })
-      // <img src = "${producto.img}" class = "card-img-tom imgProductos">
-
       datos.forEach((clase_pilates) => {
         const card = document.createElement("div");
         card.classList.add("col");
         card.innerHTML = `
                         <div class = "card" >
                         <img src = "${clase_pilates.imagen}" class = "card-img-tom img_clases">
-
                         <div class = "card-body" >
                                 <h3> ${clase_pilates.horario} </h3>
                                 <p> ${clase_pilates.nivel} </p>
-
                             </div>
-
                         </div>`;
-
         clases_de_pilates.appendChild(card);
       });
     })
     .catch((error) => console.log(error))
     .finally(() => console.log("Proceso finalizado correctamente!"));
 }
-
-// function vuelvo(){
-//     contenedor.appendChild(parrafo);
-//     contenedor.appendChild(volver);
-//     volver.addEventListener("click", crear_botones);
-// }
 
 function cancelo() {
   let alumno_molesto = array_alumnos_estudio.find(
@@ -334,19 +308,14 @@ function cancelo() {
     backdrop: "linear-gradient(135deg, #08010a,#1e0125)",
     timer: 2500,
   });
-  //    parrafo.innerText = "Su turno ha sido cancelado.";
   localStorage.removeItem("fecha turno");
   localStorage.removeItem("horario turno");
   localStorage.removeItem("turnos");
-  //    acepta()
-  // setTimeout( () => {
-  // console.log("Tarea A");
-  // }, 3000);
   crear_botones();
 }
-
 mostrar_clases();
 clases_de_pilates.classList.toggle("oculto");
+
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
   const nombre = document.getElementById("nombre").value;
@@ -372,7 +341,6 @@ formulario.addEventListener("submit", (e) => {
 reservar.addEventListener("click", () => {
   remover();
   if (localStorage.getItem("turnos")) {
-    // parrafo.innerText = `${localStorage.getItem("nombre")}, Ud. ya tiene un turno reservado!`;
     Swal.fire({
       title: "¡Ud. ya tiene un turno reservado!",
       showConfirmButton: false,
@@ -383,8 +351,6 @@ reservar.addEventListener("click", () => {
       timer: 2500,
     });
     crear_botones();
-    //  vuelvo();
-    // contenedor.appendChild(consultar);
   } else {
     parrafo.innerText = `Por favor, complete los datos del turno que desea reservar.`;
     contenedor_parrafo.appendChild(parrafo);
@@ -407,7 +373,6 @@ formulario2.addEventListener("submit", (e) => {
   );
   la_reserva.alumnos.push(alumno1);
   remover();
-  //parrafo.innerText = `${localStorage.getItem("nombre")}, su turno ha sido reservado para el ${dia} a las ${horario}!`;
   Swal.fire({
     title: "¡Su turno ha sido reservado con éxito!",
     showConfirmButton: false,
@@ -421,27 +386,13 @@ formulario2.addEventListener("submit", (e) => {
   localStorage.setItem("horario turno", horario);
   let turnos_reservados_JSON = JSON.stringify(alumno1.turnos_reservados);
   localStorage.setItem("turnos", turnos_reservados_JSON);
-  //acepta()
   crear_botones();
 });
 
 consultar.addEventListener("click", () => {
-  //remover();
   if (!localStorage.getItem("turnos")) {
-    //parrafo.innerText = `${localStorage.getItem("nombre")}, Ud. aún no tiene turnos reservados!`;
-    // Swal.fire(
-    //     {  title: "¡Ud. aún no tiene turnos reservados!",
-    //     showConfirmButton: false,
-    //     showCancelButton: false,
-    //     cancelButtonText: "ACEPTAR",
-    //     background: "transparent",
-    //     backdrop: "linear-gradient(135deg, #08010a,#1e0125)",
-    //     timer: 2500,
-    //     })
     sin_turnos();
-  }
-  //      crear_botones()}
-  else {
+  } else {
     let alumno1 = alta_alumno();
     turnos_alumno1 = consulta_turnos_alumno(alumno1);
     Swal.fire({
@@ -463,22 +414,10 @@ consultar.addEventListener("click", () => {
 cancelar.addEventListener("click", () => {
   remover();
   if (!localStorage.getItem("turnos")) {
-    // Swal.fire(
-    //     {  title: "¡Ud. aún no tiene turnos reservados!",
-    //     showConfirmButton: false,
-    //     showCancelButton: false,
-    //     cancelButtonText: "ACEPTAR",
-    //     background: "transparent",
-    //     backdrop: "linear-gradient(135deg, #08010a,#1e0125)",
-    //     timer: 2500,
-    //     })
     sin_turnos();
-  }
-  //        crear_botones()}
-  else {
+  } else {
     let alumno1 = alta_alumno();
     let turnos_alumno1 = consulta_turnos_alumno(alumno1);
-    //console.log(...turnos_alumno1)
     Swal.fire({
       title: `${localStorage.getItem(
         "nombre"
@@ -502,14 +441,6 @@ cancelar.addEventListener("click", () => {
         crear_botones();
       }
     });
-    // parrafo.innerText = `${localStorage.getItem(
-    //   "nombre"
-    // )}, Ud. cancelará el turno reservado para el ${
-    //   turnos_alumno1[0].dia
-    // } a las ${turnos_alumno1[0].horario}.`;
-    // acepta(false);
-    // contenedor_parrafo.appendChild(confirmar);
-    //  confirmar.addEventListener("click", cancelo);
   }
 });
 
