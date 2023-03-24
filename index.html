@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SISTEMA DE GESTION DE TURNOS</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="estilos.css" />
+  </head>
+
+  <body class="container-fluid">
+    <div id="contenedor_bienvenida">
+      <h1 id="titulo">BIENVENIDO AL SISTEMA DE GESTION DE TURNOS</h1>
+
+      <p id="welcome">
+        Para acceder al sistema de reservas, por favor ingrese sus datos:
+      </p>
+
+      <form id="formulario">
+        <label for="nombre"></label>
+        <input type="text" id="nombre" required placeholder="Nombre" />
+        <br /><br />
+
+        <label for="apellido"></label>
+        <input type="text" id="apellido" required placeholder="Apellido" />
+        <br /><br />
+        <label for="email"></label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="E-mail"
+        />
+        <br /><br />
+        <button class="btn btn-outline-secondary">Enviar</button>
+      </form>
+
+      <form id="formulario2">
+        <label for="fecha_turno" class="ouch">Fecha de la clase:</label>
+
+        <select name="select" id="fecha_turno" class="ouch">
+          <option value="lunes 6 de marzo" selected>lunes 6 de marzo</option>
+          <option value="martes 7 de marzo">martes 7 de marzo</option>
+          <option value="miércoles 8 de marzo">miércoles 8 de marzo</option>
+          <option value="jueves 9 de marzo">jueves 9 de marzo</option>
+          <option value="viernes 10 de marzo">viernes 10 de marzo</option>
+        </select>
+        <!-- <input type="date" id="fecha_clase" name="fecha" value="2023-03-07" min="2023-03-07" max="2023-03-10"> -->
+
+        <label for="horario_turno" class="ouch">Horario de la clase:</label>
+        <select name="select" id="horario_turno" class="ouch">
+          <option value="8 am" selected>8 am</option>
+          <option value="9 am">9 am</option>
+          <option value="10 am">10 am</option>
+        </select>
+        <br /><br />
+        <button class="btn btn-outline-secondary">Reservar turno</button>
+      </form>
+    </div>
+    <!-- <button id="reservar">Reservar turno</button>
+    <button id="cancelar">Cancelar turno</button>
+    <button id="consultar">Consultar turno</button> -->
+    <div id="contenedor_parrafo"></div>
+    <div id="contenedor_botones" class="contenedor"></div>
+    <div id="clases_de_pilates" class="row clases_de_pilates"></div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script src="main.js"></script>
+  </body>
+</html>

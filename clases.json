@@ -1,0 +1,20 @@
+[
+  {
+    "horario": "8 AM",
+    "nivel": "PRINCIPIANTE",
+    "descripción": "Ideal para quienes toman sus primeras clases, retoman la actividad, o simplemente se lo quieren tomar con calma.",
+    "imagen": "images/ini.jpg"
+  },
+  {
+    "horario": "9 AM",
+    "nivel": "INTERMEDIO",
+    "descripción": "Recomendado para quienes llevan más de doce semanas seguidas de actividad.",
+    "imagen": "images/int.jpg"
+  },
+  {
+    "horario": "10 AM",
+    "nivel": "AVANZADO",
+    "descripción": "Clase exigente de principio a fin.",
+    "imagen": "images/av.jpg"
+  }
+]
