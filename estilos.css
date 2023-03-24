@@ -1,18 +1,62 @@
 body {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin-top: 10rem;
-  /* background-color: black; */
   background: linear-gradient(135deg, #08010a, #1e0125);
-
   color: white;
   text-align: center;
   min-height: 100vh;
+}
+
+h1 {
+  color: rgb(197, 196, 196);
+  font-weight: bold;
+  font-size: 1.75rem;
+  padding: 20px 6px 0px 6px;
+  margin-bottom: 1rem;
+}
+
+p {
+  color: rgb(197, 196, 196);
+  padding: 10px;
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 
 .btn {
   color: black !important;
   margin-bottom: 1.25rem;
   background-color: rgb(197, 196, 196);
+  font-size: 1rem;
+}
+
+.clases_de_pilates {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.oculto {
+  display: none;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  background: transparent;
+  font-size: 1rem !important;
+  font-weight: normal !important;
+}
+
+.img_clases {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+h3 {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 1rem;
 }
 
@@ -47,6 +91,7 @@ select {
   background-color: black !important;
   padding: 8px;
 }
+
 .ouch {
   font-size: 1.25rem !important;
   color: rgb(197, 196, 196);
@@ -55,63 +100,11 @@ select {
   background: linear-gradient(135deg, #08010a, #1e0125) !important;
   padding: 8px;
 }
-h1 {
-  color: rgb(197, 196, 196);
-  font-weight: bold;
-  font-size: 1.75rem;
-  padding: 20px 6px 0px 6px;
-  margin-bottom: 1rem;
-}
 
 .contenedor {
   display: flex;
   justify-content: center;
   gap: 5px;
-}
-p {
-  color: rgb(197, 196, 196);
-  padding: 10px;
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-
-.swal2-popup {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  border: solid 1px rgb(70, 36, 70) !important;
-  color: rgb(197, 196, 196) !important;
-  font-weight: bold !important;
-  font-size: 0.75rem !important;
-}
-
-h3 {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 1rem;
-}
-
-.clases_de_pilates {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.card {
-  display: flex;
-  align-items: center;
-  margin: 0.5rem;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  background: transparent;
-  font-size: 1rem !important;
-  font-weight: normal !important;
-}
-
-.img_clases {
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
-}
-
-.oculto {
-  display: none;
 }
 
 .swal2-styled.swal2-confirm {
@@ -123,4 +116,12 @@ h3 {
 .swal2-styled.swal2-cancel {
   color: white !important;
   font-size: 1rem;
+}
+
+.swal2-popup {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  border: solid 1px rgb(70, 36, 70) !important;
+  color: rgb(197, 196, 196) !important;
+  font-weight: bold !important;
+  font-size: 0.75rem !important;
 }
